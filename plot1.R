@@ -8,15 +8,14 @@ library(dplyr)
 current_dir <- dirname(parent.frame(2)$ofile)
 setwd(current_dir)
 
+# get data
+if (!file.exists("household_power_consumption.txt")) {
+    tmp <- tempfile()
+    fileUrl <- "https://d396qusza40orc.cloudfront.net/exdata%2Fdata%2Fhousehold_power_consumption.zip"
+    download.file(fileUrl, tmp, mode = "wb")
+    unzip(tmp, "household_power_consumption.txt")
+}
 
-# if (!file.exists("data")) {
-#     dir.create("data")
-# }
-# 
-# tmp <- tempfile()
-# fileUrl <- "https://d396qusza40orc.cloudfront.net/exdata%2Fdata%2Fhousehold_power_consumption.zip"
-# download.file(fileUrl, tmp, mode = "wb")
-# unzip(tmp, "household_power_consumption.txt")
 
 # load, process and filter dataset
 dt <- fread("household_power_consumption.txt", header = TRUE, stringsAsFactors = TRUE, sep = ";", na.strings = c("?", ""))
