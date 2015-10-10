@@ -5,6 +5,7 @@
 library(data.table)
 library(dplyr)
 
+# set current working dir to where script lives
 current_dir <- dirname(parent.frame(2)$ofile)
 setwd(current_dir)
 
@@ -15,7 +16,6 @@ if (!file.exists("household_power_consumption.txt")) {
     download.file(fileUrl, tmp, mode = "wb")
     unzip(tmp, "household_power_consumption.txt")
 }
-
 
 # load, process and filter dataset
 dt <- fread("household_power_consumption.txt", header = TRUE, stringsAsFactors = TRUE, sep = ";", na.strings = c("?", ""))
